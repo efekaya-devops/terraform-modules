@@ -13,7 +13,7 @@ resource "stackit_ske_cluster" "this" {
     volume_size        = p.volume_size
     volume_type        = p.volume_type
     labels             = p.labels
-    max_surge          = p.max_surge
+    max_surge          = coalesce(p.max_surge, length(p.availability_zones))
     max_unavailable    = p.max_unavailable
   }]
 

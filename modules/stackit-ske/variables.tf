@@ -36,7 +36,7 @@ variable "kubernetes_version_min" {
 }
 
 variable "node_pools" {
-  description = "Worker node pools. machine_type e.g. g2i.2 (2 vCPU/8 GB), g2i.4, g2i.8. Append new pools at the end: the provider matches by index."
+  description = "Worker node pools. machine_type e.g. g2i.2 (2 vCPU/8 GB), g2i.4, g2i.8. Append new pools at the end: the provider matches by index. max_surge defaults to the pool zone count (the provider minimum)."
   type = list(object({
     name               = string
     machine_type       = string
@@ -46,7 +46,7 @@ variable "node_pools" {
     volume_size        = optional(number, 50)
     volume_type        = optional(string, "storage_premium_perf1")
     labels             = optional(map(string), {})
-    max_surge          = optional(number, 1)
+    max_surge          = optional(number)
     max_unavailable    = optional(number, 0)
   }))
   default = [{
